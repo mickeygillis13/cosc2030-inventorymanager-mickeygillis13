@@ -18,6 +18,7 @@ class InvStack
 		void push(T);
 		void pop(T &);
 		bool isEmpty();
+		void display();
 };
 
 //*********************************************************
@@ -88,4 +89,17 @@ bool InvStack<T>::isEmpty()
 	}
 		
 	return status;
+}
+template <class T>
+void InvStack<T>::display() {
+    StackNode* current = top;
+	int count = 1;
+    while (current != nullptr) {
+        cout << "\tItem " << count << ":" << endl;
+        cout << "\t\tSerial number: " << current->value.getSerialNum() << endl;
+        cout << "\t\tManufacture date: " << current->value.getManufactDate() << endl;
+        current = current->next;
+		count++;
+    }
+    cout << endl;
 }
