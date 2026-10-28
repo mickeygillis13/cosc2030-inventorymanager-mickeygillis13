@@ -19,6 +19,7 @@ class InvQue {
         void enqueue(T);
 		void dequeue(T &);
 		bool isEmpty();
+        void display();
 };
 
 template <class T>
@@ -62,6 +63,19 @@ void InvQue<T>::dequeue(T &num)
 template <class T>
 bool InvQue<T> :: isEmpty(){
 	return front == nullptr;
+}
+template <class T>
+void InvQue<T>::display() {
+    QueueNode* current = front;
+	int count = 1;
+    while (current != nullptr) {
+        cout << "\tItem " << count << ":" << endl;
+        cout << "\t\tSerial number: " << current->data.getSerialNum() << endl;
+        cout << "\t\tManufacture date: " << current->data.getManufactDate() << endl;
+        current = current->next;
+		count++;
+    }
+    cout << endl;
 }
 
 template <class T>
