@@ -10,12 +10,21 @@ using namespace std;
 int main()
 {
 	InvStack<InventoryItem> stack;	// create stack
+	InvQue<InventoryItem> queue;	// create queue
 	InventoryItem item;				// create inventory item object
+	
 
 	int choice;						// Menu choice
 	long serial;					// Serial number
 	string mDate;					// Manufacture date
-
+	int structChoice;               // 1 = stack, 2 = queue
+	cout << "Choose the data structure to use (1 for stack, 2 for queue): ";
+	cin >> structChoice;
+	while (structChoice < 1 || structChoice > 2)
+	{
+		cout << "Please enter 1 for stack or 2 for queue: ";
+		cin >> structChoice;
+	}
 	do
 	{
 		// Display the menu.
@@ -46,17 +55,23 @@ int main()
 			cout << "Enter the item's manufacture date: ";
 			cin >> mDate;
 			item.setManufactDate(mDate);
-			stack.push(item);
+			if (structChoice == 1)
+				stack.push(item);
+			else
+				queue.enqueue(item);
 			break;
 
 		case 2:
 			// Take a part out of inventory.
 			cout << "\nYou have chosen to remove an item from the inventory bin.\n\n";
-			if (stack.isEmpty())
+			if ((structChoice == 1 && stack.isEmpty()) || (structChoice == 2 && queue.isEmpty()))
 				cout << "No parts to remove.\n";
 			else
 			{
-				stack.pop(item);
+				if (structChoice == 1)
+					stack.pop(item);
+				else
+					queue.dequeue(item);
 				cout << "\nThe part you removed was:\n";
 				cout << "\tSerial number: " << item.getSerialNum() << endl;
 				cout << "\tManufacture date: " << item.getManufactDate() << endl;
