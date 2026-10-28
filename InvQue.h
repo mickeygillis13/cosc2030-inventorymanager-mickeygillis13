@@ -21,4 +21,55 @@ class InvQue {
 		bool isEmpty();
 };
 
+template <class T>
+void InvQue<T>::enqueue(T num)
+{
+	QueueNode *newNode = nullptr;
+
+	// Allocate a new node & store the item
+	newNode = new QueueNode;
+	newNode->data = num;
+	newNode->next = nullptr;
+	// If there are no nodes in the queue
+	// make newNode the first node
+	if (isEmpty())
+	{
+		front = rear = newNode;
+		
+	}
+	else		// Otherwise, insert newNode at the end
+	{
+		rear->next = newNode;
+		rear = newNode;
+	}
+}
+
+template <class T>
+void InvQue<T>::dequeue(T &num)
+{
+	if (isEmpty())
+	{
+		cerr << "Queue is empty. Cannot dequeue." << endl;
+		return;
+	}
+	QueueNode *temp = front;
+	num = front->data;
+	front = front->next;
+	delete temp;
+	if (front == nullptr)
+		rear = nullptr;
+}
+template <class T>
+bool InvQue<T> :: isEmpty(){
+	return front == nullptr;
+}
+
+template <class T>
+InvQue<T>::~InvQue() {
+	T temp;
+	while (!isEmpty()) {
+		dequeue(temp);
+	}
+}
+
 #endif 
