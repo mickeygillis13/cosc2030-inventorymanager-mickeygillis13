@@ -31,14 +31,15 @@ int main()
 		cout << "\n------ Inventory Menu --------\n\n";
 		cout << "1.  Enter a part into the inventory.\n";
 		cout << "2.  Take a part from the inventory.\n";
-		cout << "3.  Quit.\n\n";
-		cout << "Please make a choice (1, 2, or 3):  ";
+		cout << "3.  Display inventory.\n";
+		cout << "4.  Quit.\n\n";
+		cout << "Please make a choice (1, 2, 3, or 4):  ";
 		cin >> choice;
 
 		// Validate choice
-		while (choice < 1 || choice > 3)
+		while (choice < 1 || choice > 4)
 		{
-			cout << "Please enter 1, 2, or 3: ";
+			cout << "Please enter 1, 2, 3, or 4: ";
 			cin >> choice;
 		}
 
@@ -78,12 +79,25 @@ int main()
 				cout << endl;
 			}
 			break;
-
 		case 3:
+			// Display inventory.
+			cout << "\nYou have chosen to display the inventory bin.\n\n";
+			if ((structChoice == 1 && stack.isEmpty()) || (structChoice == 2 && queue.isEmpty()))
+				cout << "No parts in inventory.\n";
+			else
+			{
+				if (structChoice == 1)
+					stack.display();
+				else
+					queue.display();
+			}
+			break;
+
+		case 4:
 			cout << "\nGoodbye!\n\n";
 			break;
 		}
-	} while (choice  != 3);
+	} while (choice  != 4);
 
 	return 0;
 }
