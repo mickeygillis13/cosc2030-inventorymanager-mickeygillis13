@@ -5,6 +5,7 @@
 #include "InvItem.h"
 #include "InvStack.h"
 #include "InvQue.h"
+#include "InvTree.h"
 using namespace std;
 
 int main()

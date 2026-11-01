@@ -144,6 +144,10 @@ void InvTree<T>::makeDeletion(TreeNode *&nodePtr)
 template <class T>
 void InvTree<T>::displayInOrder(TreeNode *nodePtr) const
 {
-   //TODO
+   if (nodePtr){
+      displayInOrder(nodePtr->left);
+      cout << nodePtr->value << endl;
+      displayInOrder(nodePtr->right);
+   }
 }
 #endif
