@@ -37,6 +37,30 @@ public:
 
 	int getLotNum() const
 		{ return lotNum; }
+
+	// Overload the < operator
+    bool operator<(const InventoryItem& other) const {
+        return serialNum < other.serialNum; // Compare based on serial number
+    }
+
+    // Optional: Overload the == operator for equality checks
+    bool operator==(const InventoryItem& other) const {
+        return serialNum == other.serialNum; // Compare based on serial number
+    }
+
+	// Overload the > operator
+    bool operator>(const InventoryItem& other) const {
+        return serialNum > other.serialNum; // Compare based on serial number
+    }
+
+	// Overload the << operator
+	// A friend function can access the private and protected members of the class. 
+	// This is necessary for the << operator because it often needs to access the internal state 
+	// (like serialNum and manufactureDate) of the class to output meaningful information.
+    friend std::ostream& operator<<(std::ostream& os, const InventoryItem& item) {
+        os << "Serial Number: " << item.serialNum << ", Manufacture Date: " << item.manufactDate;
+        return os;
+    }
 };
 
 #endif
