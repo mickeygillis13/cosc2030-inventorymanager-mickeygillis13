@@ -86,7 +86,15 @@ void InvTree<T>::insertNode(T item)
 template <class T>
 void InvTree<T>::destroySubTree(TreeNode *nodePtr)
 {
-   //TODO
+   if(nodePtr){
+      if(nodePtr->left){
+         destroySubTree(nodePtr->left);
+      }
+      if(nodePtr->right){
+         destroySubTree(nodePtr->right);
+      }
+      delete nodePtr;
+   }
 }
    
 //***************************************************
