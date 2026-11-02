@@ -1,5 +1,3 @@
-#include <iostream>
-
 // Chapter 19, Programming Challenge 12: Inventory Bin Queue
 #include <iostream>
 #include "InvItem.h"
@@ -12,18 +10,19 @@ int main()
 {
 	InvStack<InventoryItem> stack;	// create stack
 	InvQue<InventoryItem> queue;	// create queue
+	InvTree<InventoryItem> tree;	// create tree
 	InventoryItem item;				// create inventory item object
 	
 
 	int choice;						// Menu choice
 	long serial;					// Serial number
 	string mDate;					// Manufacture date
-	int structChoice;               // 1 = stack, 2 = queue
-	cout << "Choose the data structure to use (1 for stack, 2 for queue): ";
+	int structChoice;               // 1 = stack, 2 = queue, 3 = tree
+	cout << "Choose the data structure to use (1 for stack, 2 for queue, 3 for tree): ";
 	cin >> structChoice;
-	while (structChoice < 1 || structChoice > 2)
+	while (structChoice < 1 || structChoice > 3)
 	{
-		cout << "Please enter 1 for stack or 2 for queue: ";
+		cout << "Please enter 1 for stack, 2 for queue, or 3 for tree: ";
 		cin >> structChoice;
 	}
 	do
@@ -59,8 +58,10 @@ int main()
 			item.setManufactDate(mDate);
 			if (structChoice == 1)
 				stack.push(item);
-			else
+			else if (structChoice == 2)
 				queue.enqueue(item);
+			else if (structChoice == 3)
+				tree.insertNode(item);
 			break;
 
 		case 2:
@@ -70,14 +71,34 @@ int main()
 				cout << "No parts to remove.\n";
 			else
 			{
-				if (structChoice == 1)
+				if (structChoice == 1){
 					stack.pop(item);
-				else
+					cout << "\nThe part you removed was:\n";
+					cout << "\tSerial number: " << item.getSerialNum() << endl;
+					cout << "\tManufacture date: " << item.getManufactDate() << endl;
+					cout << endl;
+				}
+				else if (structChoice == 2){
 					queue.dequeue(item);
-				cout << "\nThe part you removed was:\n";
-				cout << "\tSerial number: " << item.getSerialNum() << endl;
-				cout << "\tManufacture date: " << item.getManufactDate() << endl;
-				cout << endl;
+					cout << "\nThe part you removed was:\n";
+					cout << "\tSerial number: " << item.getSerialNum() << endl;
+					cout << "\tManufacture date: " << item.getManufactDate() << endl;
+					cout << endl;
+				}
+				else if (structChoice == 3){
+					cout << "Enter the serial number of the part to remove: ";
+					cin >> serial;
+					item.setSerialNum(serial);
+					if (tree.searchNode(item)){
+						tree.remove(item);
+						cout << "\nPart with serial number " << serial << " has been removed.\n";
+					}
+					else{
+						cout << "Item not found in inventory.\n";
+					}
+				}
+
+
 			}
 			break;
 		case 3:
@@ -89,11 +110,12 @@ int main()
 			{
 				if (structChoice == 1)
 					stack.display();
-				else
+				else if (structChoice == 2)
 					queue.display();
+				else if (structChoice == 3)
+					tree.displayInOrder();
 			}
 			break;
-
 		case 4:
 			cout << "\nGoodbye!\n\n";
 			break;
