@@ -151,7 +151,24 @@ void InvTree<T>::deleteNode(T item, TreeNode *&nodePtr)
 template <class T>
 void InvTree<T>::makeDeletion(TreeNode *&nodePtr)
 {
-   //TODO
+   TreeNode *tempNodePtr = nodePtr;
+   if(nodePtr->left && nodePtr->right){
+      TreeNode *checkerNodePtr = nodePtr->right;
+      while (checkerNodePtr->left != nullptr){
+         checkerNodePtr = checkerNodePtr->left;
+      }
+      checkerNodePtr->left = nodePtr->left;
+      nodePtr = nodePtr->right;
+      delete tempNodePtr;
+   }
+   else if(!nodePtr->right){
+      nodePtr = nodePtr->left;
+      delete tempNodePtr;
+   }
+   else if(nodePtr->right){
+      nodePtr = nodePtr->right;
+      delete tempNodePtr;
+   }
 }
 
 //****************************************************************
